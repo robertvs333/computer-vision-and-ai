@@ -1,0 +1,18 @@
+---
+title: "5LSH0 computer vision and ai"
+subtitle: "Academic Period: 2025-Q2"
+listing:
+  contents: "*.ipynb"
+  type: table
+  sort: "title"
+  fields: [title, subtitle]
+  filter-ui: false
+  sort-ui: false
+---
+
+## Course Overview
+Welcome to the lecture notes for **computer vision and ai**.
+
+The table below lists all available lecture notes and automatically updates when you add new  files to this repository.
+
+## Lecture Notes
