@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/CNN.html",
+      "/fundamentals_of_neural_networks.html",
       "/Sample.html"
     ]
   }

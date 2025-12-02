@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "CNN.html",
+    "href": "CNN.html",
+    "title": "CNN",
+    "section": "",
+    "text": "The CNN succeeded because not every neuron in a layer is connected to all neurons in a different layer. Besides the hnadling was changed into a scale invariant method.The cnn network trains the values for the kernels. The input layer becomes the amount of pixels.\n\n\n\n\n\n\nNotePerceptive field\n\n\n\nThe receptive field is the combination of pixels, to which the hidden layer is connected\n\n\n\n\n\nScreenshot of slide\n\n\nRepeating this turns into:\n\n\n\nScreenshot of slide\n\n\n\n\n\n\n\n\nTipKernel\n\n\n\nThese k*k weights basically provide a kernel and therefore we are training a kernel\n\n\nEach picture contains 3 colors so for every color there are three channels. Due to this the kernels are not 2x2 but most of the times it is 3x3.\nYou can apply different kernels in the same layer which also creates extra depth. This is happening in a different channel. This channel is also called a This depth is why we call it deep learning.\n\n\n\nScreenshot of Slide"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "5LSH0 computer vision and ai",
