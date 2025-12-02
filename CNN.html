@@ -112,8 +112,19 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#general-information" id="toc-general-information" class="nav-link active" data-scroll-target="#general-information">General information</a></li>
+  <li><a href="#applying-techniques" id="toc-applying-techniques" class="nav-link" data-scroll-target="#applying-techniques">Applying techniques</a>
+  <ul class="collapse">
+  <li><a href="#d-convulotion" id="toc-d-convulotion" class="nav-link" data-scroll-target="#d-convulotion">1d convulotion</a></li>
+  <li><a href="#how-to-reduce-overfitting" id="toc-how-to-reduce-overfitting" class="nav-link" data-scroll-target="#how-to-reduce-overfitting">How to reduce overfitting?</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -138,6 +149,8 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>The CNN succeeded because not every neuron in a layer is connected to all neurons in a different layer. Besides the hnadling was changed into a scale invariant method.The cnn network trains the values for the kernels. The input layer becomes the amount of pixels.</p>
+<section id="general-information" class="level2">
+<h2 class="anchored" data-anchor-id="general-information">General information</h2>
 <div class="callout callout-style-default callout-note callout-titled" title="Perceptive field">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -148,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The receptive field is the combination of pixels, to which the hidden layer is connected</p>
+<p>The receptive field is the combination of pixels that, the specific neuron is using as input</p>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -174,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>These k*k weights basically provide a kernel and therefore we are training a kernel</p>
+<p>These k*k weights basically provide a kernel and therefore we are training the kernels. The weights w become the parameters of the filters</p>
 </div>
 </div>
 <p>Each picture contains 3 colors so for every color there are three channels. Due to this the kernels are not 2x2 but most of the times it is 3x3.</p>
@@ -185,8 +198,40 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Screenshot of Slide</figcaption>
 </figure>
 </div>
+<p>A pooling layer takes the outcomes of the convulotion layer and applies a kernel over this. In most cases this is a max-pool which selects the highest value. The following image shows an example for this.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-02 at 14.52.33.png" class="img-fluid figure-img"></p>
+<figcaption>Screenshot of lecture slide of pooling layer</figcaption>
+</figure>
+</div>
+<p>The stride is how many pixels it moves to the left. Stride 2 is therefore jumping over 1 pixel.</p>
+<p>The low level features are learned in the ealrier layers. The higher level features are learned in later layers.</p>
+<p>A fully connected layer is applied to all of the result to get the final prediction.</p>
+</section>
+<section id="applying-techniques" class="level2">
+<h2 class="anchored" data-anchor-id="applying-techniques">Applying techniques</h2>
+<section id="d-convulotion" class="level3">
+<h3 class="anchored" data-anchor-id="d-convulotion">1d convulotion</h3>
+<p>1d convulotion is applied to the last convulotion layer such that the depth is reduced to 1 again.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Screenshot 2025-12-02 at 15.07.51.png" class="img-fluid figure-img"></p>
+<figcaption>Screenshot of 1d convulotion</figcaption>
+</figure>
+</div>
+</section>
+<section id="how-to-reduce-overfitting" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-reduce-overfitting">How to reduce overfitting?</h3>
+<ol type="1">
+<li>Simplify the model (reduce the amount of neurons and layers)</li>
+<li>Penalize high values for kernels by regularization</li>
+<li>Dropout, randomly remove some of the neurons in the network during each iteration</li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
