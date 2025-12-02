@@ -2,7 +2,7 @@
 title: "5LSH0 computer vision and ai"
 subtitle: "Academic Period: 2025-Q2"
 listing:
-  contents: "*.ipynb"
+  contents: "docs/*.ipynb"
   type: table
   sort: "title"
   fields: [title, subtitle]
