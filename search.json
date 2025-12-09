@@ -18,7 +18,42 @@
     "href": "CNN.html#applying-techniques",
     "title": "CNN",
     "section": "Applying techniques",
-    "text": "Applying techniques\n\n1d convulotion\n1d convulotion is applied to the last convulotion layer such that the depth is reduced to 1 again.\n\n\n\nScreenshot of 1d convulotion\n\n\n\n\nHow to reduce overfitting?\n\nSimplify the model (reduce the amount of neurons and layers)\nPenalize high values for kernels by regularization\nDropout, randomly remove some of the neurons in the network during each iteration"
+    "text": "Applying techniques\n\n1d convulotion\n1d convulotion is applied to the last convulotion layer such that the depth is reduced to 1 again.\n\n\n\nScreenshot of 1d convulotion\n\n\n\n\nHow to reduce overfitting?\n\nSimplify the model (reduce the amount of neurons and layers)\nPenalize high values for kernels by regularization\nDropout, randomly remove some (typically 50%) of the neurons in the network during each training iteration.\nBatch normalization, normalize (gaussian) the outcome of the activation function.\n\n\nBatch normalization\n\n\n\nScreenshot of batch normalization"
+  },
+  {
+    "objectID": "CNN.html#practical-aspects",
+    "href": "CNN.html#practical-aspects",
+    "title": "CNN",
+    "section": "Practical aspects",
+    "text": "Practical aspects\n\n\n\n\n\n\nTiptransfer learning\n\n\n\nIn most cases it is actually better to use a pre-trained model eventhough this model is trained on a different item (must be images) because it already knows how to extract features. This is also called transfer learning.\n\n\nBatch gradient descent can lead to very slow training because it needs to save all the updates of each weight for each image in the dataset. Stochastic gradient descent can be quick however can lead to an osicilating learning curve. Mini-batch gradient descent is a sort of combination of both. These mini-batches should contain each class.\nTo evaluate global performance, and analyse the precision-recall trade-off.\n\n\n\n“Screenshot of slides”\n\n\nA ROC curve can also be used which has the same principles.\n\n\n\n“Screenshot of slides”"
+  },
+  {
+    "objectID": "3d.html",
+    "href": "3d.html",
+    "title": "3D",
+    "section": "",
+    "text": "How does a film/sensor actually capture a photo? The pinhole which is basically just a small aperature model make sure that pictures do not get blurry.\nA major downside is that it doesn’t gather much information because not much light is going through it. That is why modern camera’s are using lenses"
+  },
+  {
+    "objectID": "3d.html#projective-geometry",
+    "href": "3d.html#projective-geometry",
+    "title": "3D",
+    "section": "Projective geometry",
+    "text": "Projective geometry\nProjective geometry is used to develop an equation to map a 3d point to a 2d pixel.\n\n\n\n“Screenshot of slide”\n\n\nHowever this will not be done in cartesian coordinate system but in homogenous coordinates. Which is just basically: \\[ (x,y) \\implies \\begin{bmatrix} x \\\\ y \\\\ 1 \\end{bmatrix}  \\] The homogenous coordinate does not care about the distance, it is also scale-invariant. This homegenous coordinate system makes it possible to do 3d matrix multiplication\nConverting to homogenous coordinate to cartesian is to always just add 1 as another dimension. It can be converted back by: \\[ \\begin{bmatrix} x \\\\ y \\\\ w \\end{bmatrix} =&gt; (x/w,y/w)\\]\nas previously said it is invariant to scaling this is proved in the following: \\[K\\begin{bmatrix}x\\\\y\\\\w\\\\\\end{bmatrix} = \\begin{bmatrix}kx\\\\ky\\\\kyw\\end{bmatrix}=&gt;\\begin{bmatrix}\\frac{kx}{kw}\\\\\\frac{ky}{kw}\\end{bmatrix}=&gt;\\begin{bmatrix}\\frac{x}{w}\\\\\\frac{y}{w}\\end{bmatrix}\\]\nSo how do we map a 3d point to 2d map?\n\n\n\n“Image for clarifying which point is which”\n\n\nFirst we need to get rid of z which is possible by using the following principle:\n\n\n\n“getting rid of z”\n\n\n\\[\n\\frac{x_s}{d} = \\frac{x_v}{z_v} \\quad \\text{and} \\quad \\frac{y_s}{d} = \\frac{y_v}{z_v}\n\\]\nThese can be rearranged such that:\n\\[\nz_v \\frac{x_s}{1} = d \\frac{x_v}{1} \\quad \\text{and} \\quad z_v \\frac{y_s}{1} = d \\frac{y_v}{1}\n\\]\nthis can also be converted into a matrix:\n\\[\nz_v \\begin{pmatrix}\nx_s \\\\\\\\\ny_s \\\\\\\\\n1\n\\end{pmatrix}\n=\n\\begin{pmatrix}\nd & 0 & 0 & 0 \\\\\\\\\n0 & d & 0 & 0 \\\\\\\\\n0 & 0 & 1 & 0\n\\end{pmatrix}\n\\begin{pmatrix}\nx_v \\\\\\\\\ny_v \\\\\\\\\nz_v \\\\\\\\\n1\n\\end{pmatrix}\n\\]\nd is our focal length also known as f which results in:\n\\[\nz_v \\begin{pmatrix}\nx_s \\\\\\\\\ny_s \\\\\\\\\n1\n\\end{pmatrix}\n=\n\\begin{pmatrix}\nf & 0 & 0 & 0 \\\\\\\\\n0 & f & 0 & 0 \\\\\\\\\n0 & 0 & 1 & 0\n\\end{pmatrix}\n\\begin{pmatrix}\nx_v \\\\\\\\\ny_v \\\\\\\\\nz_v \\\\\\\\\n1\n\\end{pmatrix}\n\\]\nHowever f is given in mm and we want to have the results in pixels.\nA new function F is introduced\n\n\n\n“Show the units of each metric”"
+  },
+  {
+    "objectID": "Sample.html",
+    "href": "Sample.html",
+    "title": "Style Test",
+    "section": "",
+    "text": "NoteBlue Note Test\n\n\n\nIf this box has a dark blue header and light blue body, your styles.css is working correctly.\n\n\n\n\n\n\n\n\nWarningOrange Warning Test\n\n\n\nIf this box has a dark orange header and light orange body, your custom warning style is working correctly."
+  },
+  {
+    "objectID": "Sample.html#testing-custom-styles",
+    "href": "Sample.html#testing-custom-styles",
+    "title": "Style Test",
+    "section": "",
+    "text": "NoteBlue Note Test\n\n\n\nIf this box has a dark blue header and light blue body, your styles.css is working correctly.\n\n\n\n\n\n\n\n\nWarningOrange Warning Test\n\n\n\nIf this box has a dark orange header and light orange body, your custom warning style is working correctly."
   },
   {
     "objectID": "index.html",
@@ -40,19 +75,5 @@
     "title": "5LSH0 computer vision and ai",
     "section": "Lecture Notes",
     "text": "Lecture Notes"
-  },
-  {
-    "objectID": "Sample.html",
-    "href": "Sample.html",
-    "title": "Style Test",
-    "section": "",
-    "text": "NoteBlue Note Test\n\n\n\nIf this box has a dark blue header and light blue body, your styles.css is working correctly.\n\n\n\n\n\n\n\n\nWarningOrange Warning Test\n\n\n\nIf this box has a dark orange header and light orange body, your custom warning style is working correctly."
-  },
-  {
-    "objectID": "Sample.html#testing-custom-styles",
-    "href": "Sample.html#testing-custom-styles",
-    "title": "Style Test",
-    "section": "",
-    "text": "NoteBlue Note Test\n\n\n\nIf this box has a dark blue header and light blue body, your styles.css is working correctly.\n\n\n\n\n\n\n\n\nWarningOrange Warning Test\n\n\n\nIf this box has a dark orange header and light orange body, your custom warning style is working correctly."
   }
 ]

@@ -123,6 +123,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#d-convulotion" id="toc-d-convulotion" class="nav-link" data-scroll-target="#d-convulotion">1d convulotion</a></li>
   <li><a href="#how-to-reduce-overfitting" id="toc-how-to-reduce-overfitting" class="nav-link" data-scroll-target="#how-to-reduce-overfitting">How to reduce overfitting?</a></li>
   </ul></li>
+  <li><a href="#practical-aspects" id="toc-practical-aspects" class="nav-link" data-scroll-target="#practical-aspects">Practical aspects</a></li>
   </ul>
 </nav>
     </div>
@@ -226,11 +227,52 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>Simplify the model (reduce the amount of neurons and layers)</li>
 <li>Penalize high values for kernels by regularization</li>
-<li>Dropout, randomly remove some of the neurons in the network during each iteration</li>
+<li>Dropout, randomly remove some (typically 50%) of the neurons in the network during each training iteration.</li>
+<li>Batch normalization, normalize (gaussian) the outcome of the activation function.</li>
 </ol>
-
-
+<section id="batch-normalization" class="level4">
+<h4 class="anchored" data-anchor-id="batch-normalization">Batch normalization</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Screenshot 2025-12-04 at 08.55.40.png" class="img-fluid figure-img"></p>
+<figcaption>Screenshot of batch normalization</figcaption>
+</figure>
+</div>
 </section>
+</section>
+</section>
+<section id="practical-aspects" class="level2">
+<h2 class="anchored" data-anchor-id="practical-aspects">Practical aspects</h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="transfer learning">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>transfer learning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In most cases it is actually better to use a pre-trained model eventhough this model is trained on a different item (must be images) because it already knows how to extract features. This is also called transfer learning.</p>
+</div>
+</div>
+<p>Batch gradient descent can lead to very slow training because it needs to save all the updates of each weight for each image in the dataset. Stochastic gradient descent can be quick however can lead to an osicilating learning curve. Mini-batch gradient descent is a sort of combination of both. These mini-batches should contain each class.</p>
+<p>To evaluate global performance, and analyse the precision-recall trade-off.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Screenshot 2025-12-04 at 10.32.36.png" class="img-fluid figure-img"></p>
+<figcaption>“Screenshot of slides”</figcaption>
+</figure>
+</div>
+<p>A ROC curve can also be used which has the same principles.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Screenshot 2025-12-04 at 10.34.36.png" class="img-fluid figure-img"></p>
+<figcaption>“Screenshot of slides”</figcaption>
+</figure>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
