@@ -150,6 +150,10 @@ window.Quarto = {
   <li><a href="#how-do-we-calculate-this-f" id="toc-how-do-we-calculate-this-f" class="nav-link" data-scroll-target="#how-do-we-calculate-this-f">How do we calculate this F?</a></li>
   <li><a href="#taking-into-account-extrensic-camera-parameters" id="toc-taking-into-account-extrensic-camera-parameters" class="nav-link" data-scroll-target="#taking-into-account-extrensic-camera-parameters">Taking into account extrensic camera parameters</a></li>
   <li><a href="#camera-calibration" id="toc-camera-calibration" class="nav-link" data-scroll-target="#camera-calibration">Camera calibration</a></li>
+  <li><a href="#d-sensors" id="toc-d-sensors" class="nav-link" data-scroll-target="#d-sensors">3D sensors</a>
+  <ul class="collapse">
+  <li><a href="#how-to-store-the-3d-data" id="toc-how-to-store-the-3d-data" class="nav-link" data-scroll-target="#how-to-store-the-3d-data">How to store the 3D data</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -360,8 +364,76 @@ z_v \\\\
 <p>During calibration we are determining the intrincis and extrensic parameters. This is done by combining the intrinsic and extrensic into one matrix which is the projecteion matrix (3x4) which has 11 degrees of freedom (scaling invariance). This is the case becuase the right bottom value is always equal to 1. So we need to find 11 parameters</p>
 <p>How to do this (one of many examples): 1. place the camera in a known position assume that this is the origin 2. place a chess board in front of the camera with known distances between blocks 3. take at least 6 (non-planar) points from this image and their corresponding real world coordinate, more is beneficial of course. 4. Convert the following matrix equation to linear set of equations: <img src="images/Screenshot 2025-12-11 at 12.03.33.png" class="img-fluid" alt="“screenshot of slide”"> 5. Rewrite this to: <img src="images/Screenshot 2025-12-11 at 12.04.43.png" class="img-fluid" alt="“Screenshot of slide”"></p>
 <p>Real world case more than 6 points is used and the equation systems gets over-constrained and therefore it is solved using aLeast Squares Minimization. Not always results are found due to for example radial distortion and such things.</p>
+</section>
+<section id="d-sensors" class="level1">
+<h1>3D sensors</h1>
+<p>There are 2 types of sensors to determine the depth. Passive (indirect) which do not emit any acoustic signals such as stereo camera or a moving camera. There are also active (direct) sensors such as ToF, LiDARs, structured light sensors, light-field sensors which uses different focal lengths and such.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 12.31.40.png" class="img-fluid figure-img"></p>
+<figcaption>“The principles of structured light sensor”</figcaption>
+</figure>
+</div>
+<p>This sensor is highly sensitive to sunlight due to IR coming from the sun. Multiple structured light sensors and time of flight sensors will give issues due to interference on each other.</p>
+<p>The eyes use disparity. The following picture shows this.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 12.39.55.png" class="img-fluid figure-img"></p>
+<figcaption>“Disparity in eye”</figcaption>
+</figure>
+</div>
+<p>In cameras the depth is also calculated from disparity. This is done by using feature matching with for example SIFT features.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 12.42.42.png" class="img-fluid figure-img"></p>
+<figcaption>“Disparity in camera”</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 12.44.16.png" class="img-fluid figure-img"></p>
+<figcaption>“Screenshot of slide”</figcaption>
+</figure>
+</div>
+<p>From disparity we can go quite easily to depth namely:</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Disparity to depth">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Disparity to depth
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The depth can be calculated using: <span class="math display">\[
+z=\frac{b*f}{p*d},
+\]</span> <strong>Where:</strong> * <span class="math inline">\(z\)</span> is depth * <span class="math inline">\(b\)</span> is baseline * <span class="math inline">\(f\)</span> is focal length * <span class="math inline">\(p\)</span> is pixel width * <span class="math inline">\(d\)</span> is disparity</p>
+</div>
+</div>
+<p>Non prominent areas in a picture will not contain any features and therefore no features can be matched and no disparity can be calculated. Also if the matching is incorrect the depth will also be completely different. This is a major drawback. Therefore stereo cameras are not reliable. However a stereo camera can have unlimited range although this is still based on the baseline. So if you can use active sensor, however there a various reasons why you must use passive setup, in which using ir can be harmfull for the environment or to the target.</p>
+<p>LiDaR uses different scanning mechanisms to make sure that it records in 2d instead of in only one direction.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 14.46.32.png" class="img-fluid figure-img"></p>
+<figcaption>“Scanning mechanism LiDAR”</figcaption>
+</figure>
+</div>
+<p>4D imaging radar actually gives 4 dimensions: 1. Distance 2. Direction 3. Height 4. Object speed (based on the Doppler effect) 5. (Actually also material)</p>
+<p>This radar is als GDPR approved. all other sensors cannot see through fog however 4d imaging radar can. This radar sends RF signal.</p>
+<section id="how-to-store-the-3d-data" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-store-the-3d-data">How to store the 3D data</h2>
+<ol type="1">
+<li>Voxel <img src="images/Screenshot 2025-12-11 at 15.04.26.png" class="img-fluid" alt="“Voxel grid”"></li>
+<li>Octree-based Model <img src="images/Screenshot 2025-12-11 at 15.07.36.png" class="img-fluid" alt="“Octree-based model”"></li>
+<li>Point cloud <img src="images/Screenshot 2025-12-11 at 15.10.12.png" class="img-fluid" alt="“Point cloud”"></li>
+<li>Mesh <img src="images/Screenshot 2025-12-11 at 15.11.48.png" class="img-fluid" alt="“Mesh”"></li>
+<li>Depth image (RGB-D) Just images each with a depth-value</li>
+<li>NeRF <img src="images/Screenshot 2025-12-11 at 15.13.34.png" class="img-fluid" alt="“NeRF”"></li>
+</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

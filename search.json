@@ -63,6 +63,13 @@
     "text": "Camera calibration\nDuring calibration we are determining the intrincis and extrensic parameters. This is done by combining the intrinsic and extrensic into one matrix which is the projecteion matrix (3x4) which has 11 degrees of freedom (scaling invariance). This is the case becuase the right bottom value is always equal to 1. So we need to find 11 parameters\nHow to do this (one of many examples): 1. place the camera in a known position assume that this is the origin 2. place a chess board in front of the camera with known distances between blocks 3. take at least 6 (non-planar) points from this image and their corresponding real world coordinate, more is beneficial of course. 4. Convert the following matrix equation to linear set of equations:  5. Rewrite this to: \nReal world case more than 6 points is used and the equation systems gets over-constrained and therefore it is solved using aLeast Squares Minimization. Not always results are found due to for example radial distortion and such things."
   },
   {
+    "objectID": "3d_Vision.html#how-to-store-the-3d-data",
+    "href": "3d_Vision.html#how-to-store-the-3d-data",
+    "title": "3D",
+    "section": "How to store the 3D data",
+    "text": "How to store the 3D data\n\nVoxel \nOctree-based Model \nPoint cloud \nMesh \nDepth image (RGB-D) Just images each with a depth-value\nNeRF"
+  },
+  {
     "objectID": "Sample.html",
     "href": "Sample.html",
     "title": "Style Test",
