@@ -147,6 +147,9 @@ window.Quarto = {
    
   <ul>
   <li><a href="#projective-geometry" id="toc-projective-geometry" class="nav-link active" data-scroll-target="#projective-geometry">Projective geometry</a></li>
+  <li><a href="#how-do-we-calculate-this-f" id="toc-how-do-we-calculate-this-f" class="nav-link" data-scroll-target="#how-do-we-calculate-this-f">How do we calculate this F?</a></li>
+  <li><a href="#taking-into-account-extrensic-camera-parameters" id="toc-taking-into-account-extrensic-camera-parameters" class="nav-link" data-scroll-target="#taking-into-account-extrensic-camera-parameters">Taking into account extrensic camera parameters</a></li>
+  <li><a href="#camera-calibration" id="toc-camera-calibration" class="nav-link" data-scroll-target="#camera-calibration">Camera calibration</a></li>
   </ul>
 </nav>
     </div>
@@ -267,6 +270,96 @@ z_v \\\\
 <figcaption>“Show the units of each metric”</figcaption>
 </figure>
 </div>
+<p>what must be included in F: 1. Varying focal length 2. Skew (not all pixels are rectangular) 3. Radial distortions 4. Principal Point offset 5. Pixel size</p>
+<p>These are also called intrinsic carama parameters because those are varying per camera unit. Even between the same two camera’s</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 10.05.58.png" class="img-fluid figure-img"></p>
+<figcaption>“Explanation of principal point”</figcaption>
+</figure>
+</div>
+</section>
+<section id="how-do-we-calculate-this-f" class="level2">
+<h2 class="anchored" data-anchor-id="how-do-we-calculate-this-f">How do we calculate this F?</h2>
+<ol type="1">
+<li>Principal point offset</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.20.22.png" class="img-fluid figure-img"></p>
+<figcaption>“Replacement of u_0 and v_O”</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li>Non square pixels</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.21.59.png" class="img-fluid figure-img"></p>
+<figcaption>“Remove assumption: non-square pixels”</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li>Skew</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.23.38.png" class="img-fluid figure-img"></p>
+<figcaption>“Removing skew”</figcaption>
+</figure>
+</div>
+<p>W is not important, it is often also called f or z. The values for u and v should be rounded up to make it integers</p>
+</section>
+<section id="taking-into-account-extrensic-camera-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="taking-into-account-extrensic-camera-parameters">Taking into account extrensic camera parameters</h2>
+<p>The extrensic camera matrix is the mathematical link between the real world coordinate system and the camera coordinate system. It therefore specificies two things: 1. Camera position 2. Camera orientation</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.35.16.png" class="img-fluid figure-img"></p>
+<figcaption>“Screenshot of slide”</figcaption>
+</figure>
+</div>
+<p>For movement the updated matrix becomes:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.36.59.png" class="img-fluid figure-img"></p>
+<figcaption>“The camera is only being moved”</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.40.54.png" class="img-fluid figure-img"></p>
+<figcaption>“Counter-clockwise rotation around the coordinate axes”</figcaption>
+</figure>
+</div>
+<p>These three need to be multiplied because all of them are acting on the x,y and z coordinate.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.43.35.png" class="img-fluid figure-img"></p>
+<figcaption>“Result of multiplication”</figcaption>
+</figure>
+</div>
+<p>The picture will not be asked on the exam.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.46.07.png" class="img-fluid figure-img"></p>
+<figcaption>“Screenshot of slide”</figcaption>
+</figure>
+</div>
+<p>The end result will be:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-11 at 11.47.17.png" class="img-fluid figure-img"></p>
+<figcaption>“End result for extrensic camera parameters”</figcaption>
+</figure>
+</div>
+<p>The r11 r12… are the ones provided in the end result which doesn’t have to be studied for the exam. The left matrix is determining the qualtiy of the camera (intrinsic) while the right part is the extrensic part.</p>
+</section>
+<section id="camera-calibration" class="level2">
+<h2 class="anchored" data-anchor-id="camera-calibration">Camera calibration</h2>
+<p>During calibration we are determining the intrincis and extrensic parameters. This is done by combining the intrinsic and extrensic into one matrix which is the projecteion matrix (3x4) which has 11 degrees of freedom (scaling invariance). This is the case becuase the right bottom value is always equal to 1. So we need to find 11 parameters</p>
+<p>How to do this (one of many examples): 1. place the camera in a known position assume that this is the origin 2. place a chess board in front of the camera with known distances between blocks 3. take at least 6 (non-planar) points from this image and their corresponding real world coordinate, more is beneficial of course. 4. Convert the following matrix equation to linear set of equations: <img src="images/Screenshot 2025-12-11 at 12.03.33.png" class="img-fluid" alt="“screenshot of slide”"> 5. Rewrite this to: <img src="images/Screenshot 2025-12-11 at 12.04.43.png" class="img-fluid" alt="“Screenshot of slide”"></p>
+<p>Real world case more than 6 points is used and the equation systems gets over-constrained and therefore it is solved using aLeast Squares Minimization. Not always results are found due to for example radial distortion and such things.</p>
 
 
 </section>
