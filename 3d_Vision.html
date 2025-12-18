@@ -153,6 +153,15 @@ window.Quarto = {
   <li><a href="#d-sensors" id="toc-d-sensors" class="nav-link" data-scroll-target="#d-sensors">3D sensors</a>
   <ul class="collapse">
   <li><a href="#how-to-store-the-3d-data" id="toc-how-to-store-the-3d-data" class="nav-link" data-scroll-target="#how-to-store-the-3d-data">How to store the 3D data</a></li>
+  <li><a href="#nerf" id="toc-nerf" class="nav-link" data-scroll-target="#nerf">NeRF</a></li>
+  <li><a href="#gaussian-splattering" id="toc-gaussian-splattering" class="nav-link" data-scroll-target="#gaussian-splattering">Gaussian splattering</a>
+  <ul class="collapse">
+  <li><a href="#initialisation" id="toc-initialisation" class="nav-link" data-scroll-target="#initialisation">initialisation</a></li>
+  </ul></li>
+  <li><a href="#d-data-capturing" id="toc-d-data-capturing" class="nav-link" data-scroll-target="#d-data-capturing">3D Data capturing</a>
+  <ul class="collapse">
+  <li><a href="#slam" id="toc-slam" class="nav-link" data-scroll-target="#slam">SLAM</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -431,8 +440,64 @@ z=\frac{b*f}{p*d},
 <li>Depth image (RGB-D) Just images each with a depth-value</li>
 <li>NeRF <img src="images/Screenshot 2025-12-11 at 15.13.34.png" class="img-fluid" alt="“NeRF”"></li>
 </ol>
+</section>
+<section id="nerf" class="level2">
+<h2 class="anchored" data-anchor-id="nerf">NeRF</h2>
+<p>The renderling loss is calculated using a rendered image from exactly the same viewing point as from where the image is taken.</p>
+<ul>
+<li></li>
+</ul>
+</section>
+<section id="gaussian-splattering" class="level2">
+<h2 class="anchored" data-anchor-id="gaussian-splattering">Gaussian splattering</h2>
+<section id="initialisation" class="level3">
+<h3 class="anchored" data-anchor-id="initialisation">initialisation</h3>
+<p>Uses Structure-from-Motion to initialize the 3d gaussians.</p>
+</section>
+</section>
+<section id="d-data-capturing" class="level2">
+<h2 class="anchored" data-anchor-id="d-data-capturing">3D Data capturing</h2>
+<p>To add multiple pictures together for a 3d model we need to know the <em>Sensor position and orientation</em>, timestaps would also be nice but not necessary. How can we actually find sensor position and orientation at every moment in time? SLAM (Simultaneous localication and mapping)</p>
+<section id="slam" class="level3">
+<h3 class="anchored" data-anchor-id="slam">SLAM</h3>
+<p>SLAM was invented mostly for localizations of robots instead of 3d reconstruction. The main difficulty that it tackles is is that to make a 3d model we need to know our position however to determine our position we need a 3d map. There are many SLAM algorithms for various different sensors/cameras. Normally ROS2 works good for robotics. Many SLAMs use detection and tracking of landmarks/features in the images as a cornerstore.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-18 at 09.20.28.png" class="img-fluid figure-img"></p>
+<figcaption>“Main steps of SLAM”</figcaption>
+</figure>
+</div>
+<p>Of course the position is only an estimation there will always be an error. This error is alsoc called drift. This drift will become larger the more positions and frames there are added. This needs to be corrected because it can corrupt the model.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-18 at 10.09.55.png" class="img-fluid figure-img"></p>
+<figcaption>“Process for correcting pose”</figcaption>
+</figure>
+</div>
+<p>This means that the model needs to be recalculated at every step. So that is computationally expensive.</p>
+<p>So a full slam procedure would look something like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-18 at 10.18.21.png" class="img-fluid figure-img"></p>
+<figcaption>“Full SLAM loop”</figcaption>
+</figure>
+</div>
+<p>We first create a voxel grid, for this explanation a size of 256<em>256</em>256 is used. These are initialised to -1. The calculation of this point can be done using K again. This time the inverse of K needs to be used.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-18 at 10.34.05.png" class="img-fluid figure-img"></p>
+<figcaption>“Image from slide”</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-12-18 at 10.35.04.png" class="img-fluid figure-img"></p>
+<figcaption>“Image of the slide”</figcaption>
+</figure>
+</div>
 
 
+</section>
 </section>
 </section>
 
